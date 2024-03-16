@@ -1,0 +1,106 @@
+{
+    "trades": [
+        {
+            "trade_id": "617378761",
+            "product_id": "BTC-USD",
+            "price": "68181.74",
+            "size": "0.00014142",
+            "time": "2024-03-15T17:59:47.860385Z",
+            "side": "SELL",
+            "bid": "",
+            "ask": ""
+        },
+        {
+            "trade_id": "617378760",
+            "product_id": "BTC-USD",
+            "price": "68181.74",
+            "size": "0.00024686",
+            "time": "2024-03-15T17:59:47.860385Z",
+            "side": "SELL",
+            "bid": "",
+            "ask": ""
+        },
+        {
+            "trade_id": "617378759",
+            "product_id": "BTC-USD",
+            "price": "68181.74",
+            "size": "0.01462483",
+            "time": "2024-03-15T17:59:47.860385Z",
+            "side": "SELL",
+            "bid": "",
+            "ask": ""
+        },
+        {
+            "trade_id": "617378758",
+            "product_id": "BTC-USD",
+            "price": "68177.7",
+            "size": "0.00308147",
+            "time": "2024-03-15T17:59:47.051937Z",
+            "side": "BUY",
+            "bid": "",
+            "ask": ""
+        },
+        {
+            "trade_id": "617378757",
+            "product_id": "BTC-USD",
+            "price": "68177.7",
+            "size": "0.01481628",
+            "time": "2024-03-15T17:59:47.030626Z",
+            "side": "BUY",
+            "bid": "",
+            "ask": ""
+        },
+        {
+            "trade_id": "617378756",
+            "product_id": "BTC-USD",
+            "price": "68181.73",
+            "size": "0.00008803",
+            "time": "2024-03-15T17:59:46.439598Z",
+            "side": "SELL",
+            "bid": "",
+            "ask": ""
+        },
+        {
+            "trade_id": "617378755",
+            "product_id": "BTC-USD",
+            "price": "68181.74",
+            "size": "0.01",
+            "time": "2024-03-15T17:59:46.193080Z",
+            "side": "SELL",
+            "bid": "",
+            "ask": ""
+        },
+        {
+            "trade_id": "617378754",
+            "product_id": "BTC-USD",
+            "price": "68181.74",
+            "size": "0.05051342",
+            "time": "2024-03-15T17:59:45.754714Z",
+            "side": "SELL",
+            "bid": "",
+            "ask": ""
+        },
+        {
+            "trade_id": "617378753",
+            "product_id": "BTC-USD",
+            "price": "68181.72",
+            "size": "0.00002863",
+            "time": "2024-03-15T17:59:44.983321Z",
+            "side": "SELL",
+            "bid": "",
+            "ask": ""
+        },
+        {
+            "trade_id": "617378752",
+            "product_id": "BTC-USD",
+            "price": "68177.48",
+            "size": "0.00014669",
+            "time": "2024-03-15T17:59:44.857478Z",
+            "side": "BUY",
+            "bid": "",
+            "ask": ""
+        }
+    ],
+    "best_bid": "68176.12",
+    "best_ask": "68181.74"
+}

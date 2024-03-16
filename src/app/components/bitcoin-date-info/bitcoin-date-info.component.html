@@ -1,0 +1,9 @@
+<p>bitcoin-date-info works!</p>
+
+<section class="{{isSelected ? '' : ''}}" (click)="onPress()">
+    <h2>Date: {{dateInfo.date}}</h2>
+    <p>{{dateInfo.formattedDate}}</p>
+    <p>{{dateInfo.isoDate}}</p>
+    <p>Seconds: {{dateInfo.unixTimeInSeconds}}</p>
+    <p>Milliseconds: {{dateInfo.unixTimestampInMilliseconds}}</p>
+</section>
