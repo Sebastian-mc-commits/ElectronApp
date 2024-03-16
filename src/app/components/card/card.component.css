@@ -1,0 +1,47 @@
+.card-component {
+    position: relative;
+    background-color: var(--Dark_Crypto_Blue);
+    min-height: 10rem;
+    max-height: 40%;
+    color: white;
+}
+
+.card-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.bg-card {
+    background-color: var(--Dark_Crypto_Green);
+    height: 1rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.expand-class {
+    position: absolute;
+    inset: 0 0 0 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    background-color: var(--Dark_Crypto_Gray);
+    height: 20rem;
+    overflow-y: auto;
+    border-radius: var(--radius);
+    padding: 2rem;
+    transition: top 0.4s ease-in-out, opacity 0.5s;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.show-expanded-card {
+    top: 105%;
+    opacity: 1;
+    pointer-events: all;
+}
+
+.margin-bottom {
+    margin-bottom: 21.5rem;
+}

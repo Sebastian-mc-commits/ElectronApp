@@ -18,9 +18,9 @@ module.exports = (ipcMain) => {
         event.reply(transactionSummaryService.currentTransactionsSummaries, data)
     })
 
-    ipcMain.on(transactionSummaryService.transactionsSummariesByDate, async (event, args) => {
+    ipcMain.on(transactionSummaryService.transactionsSummariesByDate, async (event, { isoDate, isoDateEnd }) => {
 
-        const data = await transactionSummaryService.getTransactionsSummariesByDate(...args)
+        const data = await transactionSummaryService.getTransactionsSummariesByDate(isoDate, isoDateEnd)
 
         event.reply(transactionSummaryService.transactionsSummariesByDate, data)
     })

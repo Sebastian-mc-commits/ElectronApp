@@ -1,1 +1,17 @@
-<p>card works!</p>
+<section class="card card-component {{isExpanded ? 'margin-bottom' : ''}}">
+    <div class="card-content">
+        <div>
+            <h1>{{cardValues.cardTitle}}</h1>
+            @if (cardValues.cardDescription) {
+            <p>{{cardValues.cardDescription}}</p>
+            }
+        </div>
+
+        <button (click)="toggleExpand()">{{isExpanded ? "Unexpand" : "Expand"}} Card</button>
+
+    </div>
+    <div class="bg-card"></div>
+    <div class="expand-class {{isExpanded ? 'show-expanded-card' : ''}}">
+        <ng-content></ng-content>
+    </div>
+</section>

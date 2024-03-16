@@ -27,13 +27,14 @@ export function previousDate(date: Date, days: number): DateData {
     return dateInfo(new Date(previousDays))
 }
 
-export function getPreviousDaysFromCurrentDate(daysBefore: number): DateData[] {
+export function getPreviousDaysFromCurrentDate(from: number, to: number): DateData[] {
 
     const days = []
 
-    for (let i = 1; i <= daysBefore; i++) {
+    console.log("i", from)
+    console.log("to", to)
+    for (let i = from; i <= to; i++) {
         days.push(previousDate(new Date(), i))
-        console.log(i)
     }
 
     return days

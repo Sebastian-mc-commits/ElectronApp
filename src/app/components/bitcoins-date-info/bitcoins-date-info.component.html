@@ -1,8 +1,10 @@
-<p>bitcoins-date-info works!!!!!!!</p>
+<div class="container">
+    <app-card [cardValues]="{
+        cardTitle: 'Week ' + weekNumber
+    }">
+        @for (item of dates; track $index) {
+        <app-bitcoin-date-info [dateInfo]="item"></app-bitcoin-date-info>
+        }
+    </app-card>
 
-<div>
-    <p>Hi</p>
-    @for (item of dates; track $index) {
-    <app-bitcoin-date-info [dateInfo]="item"></app-bitcoin-date-info>
-    }
 </div>

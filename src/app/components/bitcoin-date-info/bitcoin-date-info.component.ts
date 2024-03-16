@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { DateData } from '../../../utils/models/Date.model';
+import { TradingSummaryService } from '../../services/trading-summary.service';
 
 @Component({
   selector: 'app-bitcoin-date-info',
@@ -13,7 +14,7 @@ export class BitcoinDateInfoComponent {
   @Input() dateInfo!: DateData
   isSelected: boolean
 
-  constructor() {
+  constructor(private _tradingSummaryService: TradingSummaryService) {
     this.isSelected = false
   }
 
@@ -21,5 +22,10 @@ export class BitcoinDateInfoComponent {
     this.isSelected = !this.isSelected
 
     console.log("Render to a new View: ", this.dateInfo)
+
+    if (this.isSelected) {
+      const { isoDate } = this.dateInfo
+      this._tradingSummaryService.getTransactionsSummariesByDate(isoDate, isoDate)
+    }
   }
 }

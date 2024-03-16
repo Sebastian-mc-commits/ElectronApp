@@ -1,0 +1,33 @@
+.container {
+    background-color: var(--dark);
+    padding: 1%;
+    border-radius: calc(var(--radius) - 3px);
+    margin-bottom: 2%;
+    cursor: pointer;
+    transition: opacity 0.3s, background-color 0.2s;
+}
+
+@keyframes colorChange {
+    0% {
+        background-color: var(--stormy-gray);
+        transform: translateY(0);
+    }
+
+    50% {
+        background-color: var(--blue-gray);
+        transform: translateY(-10px);
+    }
+
+    100% {
+        background-color: var(--medium-dark-gray);
+        transform: translateY(0);
+    }
+}
+
+.container:hover {
+    opacity: 0.8;
+}
+
+.selected {
+    animation: colorChange 2s infinite;
+}
