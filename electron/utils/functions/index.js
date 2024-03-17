@@ -4,5 +4,13 @@ module.exports = {
     useFetch,
     getJWTToken,
     useFetchWithAuthorizationToken,
-    convertToUseFetchObject
+    convertToUseFetchObject,
+    isJson: (str) => {
+        try {
+            JSON.parse(str);
+            return true;
+        } catch {
+            return false;
+        }
+    }
 };

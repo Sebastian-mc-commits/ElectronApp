@@ -31,13 +31,13 @@ module.exports = (ipcMain) => {
         })
     })
 
-    ipcMain.on("USD-converter", (event, value) => {
+    ipcMain.on("USD-converter", (event, {closingPrice}) => {
 
-        value = parseFloat(value)
+        closingPrice = parseFloat(closingPrice)
         event.reply("USD-converter", convertToUseFetchObject({
             response: {
-                COP: USD_to_COP(value),
-                EURO: USD_to_EURO(value)
+                COP: USD_to_COP(closingPrice),
+                EURO: USD_to_EURO(closingPrice)
             }
         }))
     })

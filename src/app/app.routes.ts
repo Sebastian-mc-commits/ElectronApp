@@ -6,11 +6,7 @@ import { validDataGuard } from './guards/valid-data.guard';
 
 export const routes: Routes = [
     {
-        path: "example",
-        component: ExampleComponent
-    },
-    {
-        path: "marketTradeViewer/:start/:end",
+        path: "marketTradeViewer/:start/:end/:formattedDate",
         component: MarketTradeViewerComponent
     },
     {

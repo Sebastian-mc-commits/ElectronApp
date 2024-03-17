@@ -1,6 +1,7 @@
 const { createWriteStream, createReadStream, existsSync, mkdirSync } = require("node:fs")
 const { Transform } = require("node:stream")
 const { join } = require("node:path")
+const { isJson } = require("../utils/functions/index.js")
 
 module.exports = class {
 
@@ -13,12 +14,13 @@ module.exports = class {
     }
 
     _createFolders = (path) => {
+        if (this._existsInCache(path)) return
         mkdirSync(path, { recursive: true });
     }
 
     writeToCache = (path, data) => {
 
-        const stream = createWriteStream(path, { flags: "a" })
+        const stream = createWriteStream(path, { flags: "w" })
 
         if (Array.isArray(data)) {
             for (const d of data) {
@@ -34,15 +36,18 @@ module.exports = class {
         stream.end()
     }
 
-    readFromCache = (path) => {
+    readFromCache = async (path) => {
 
-        return new Promise((resolve, reject) => {
+        return await new Promise((resolve, reject) => {
             const stream = createReadStream(path)
 
             const transformStream = new Transform({
                 objectMode: true,
                 transform(chunk, _d, cb) {
-                    cb(null, JSON.parse(chunk))
+
+                    if (isJson(chunk)) {
+                        cb(null, JSON.parse(chunk))
+                    }
                 }
             })
 
@@ -54,27 +59,66 @@ module.exports = class {
             })
 
             transformStream.on("end", () => {
-                resolve(data.length === 0 ? data[0] : data)
+                resolve(data.length === 1 ? data[0] : data)
             })
+
         })
     }
 
-    setupCacheStorage = async ({ file, callback, condition }, ...folders) => {
+    setupCacheStorage = async ({ file, callback, condition, replaceCache = false, setOnce = false }, ...folders) => {
         const path = this._fullPath(...[...folders, file.concat(".json")])
 
-        if (!this._existsInCache(path)) {
+        let finalData = {}
+
+        if (!this._existsInCache(path) || replaceCache || setOnce) {
             this._createFolders(this._fullPath(...folders))
 
-            const data = await Promise.resolve(callback())
-
-            console.log("Should create Cache: ", data)
-            if (condition(data)) {
-                this.writeToCache(path, data)
+            finalData = await Promise.resolve(callback())
+            const isOk = condition(finalData)
+            if (setOnce && this._existsInCache(path) && isOk) {
+                return finalData
             }
-            return data
+
+            else if (isOk) {
+                this.writeToCache(path, finalData)
+                return finalData
+            }
+
         }
 
-        console.log("Should'nt create Cache: ", path)
-        return await this.readFromCache(path)
+        if (replaceCache || this._existsInCache(path)) {
+            finalData = await this.readFromCache(path)
+        }
+
+        return finalData
+    }
+
+    reducer = async ({ isSet, ...initialParams }, { file, callback, condition }, ...folders) => {
+
+        const { replaceCache = false, setOnce = false, removeCache = false } = initialParams
+
+        if (isSet === "YES") {
+
+            if (removeCache) {
+                this.clearCache([{
+                    file,
+                    folders: folders
+                }])
+            }
+        }
+        return await this.setupCacheStorage(
+            {
+                callback,
+                condition,
+                file,
+                replaceCache,
+                setOnce
+            },
+            ...folders
+        )
+    }
+
+    clearCache(files) {
+        console.log("Clearing Cache")
     }
 }
