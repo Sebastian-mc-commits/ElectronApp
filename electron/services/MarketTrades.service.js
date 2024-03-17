@@ -13,7 +13,7 @@ module.exports = class extends Fetch {
     getMarketTrades = async (unixDate, unixDateEnd, limit = 10) => {
 
         console.log("Url: ", this.#endpoint(
-            `?start=${unixDate}${limit !== 0 ? "&limit=" + limit : ""}${unixDateEnd ? '&end=' + unixDateEnd : ''}`
+            `?start=${unixDate}${limit !== 0 && limit !== null ? "&limit=" + limit : ""}${unixDateEnd ? '&end=' + unixDateEnd : ''}`
         ))
         return await this.coinbaseFetcher(
             this.#endpoint(

@@ -5,13 +5,19 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { dateInfo } from '../../utils/functions';
 
 export type _MarketSummaryTypeAndCurrency = MarketSummaryTypeAndCurrency & {
-  isSet: boolean
+  isSet: "YES"
 }
+  | {
+    isSet: "NO"
+  }
 
 type _Trades = {
-  isSet: boolean;
+  isSet: "YES";
   trades: Trades[];
 }
+  | {
+    isSet: "NO";
+  }
 
 @Injectable({
   providedIn: 'root'
@@ -22,19 +28,16 @@ export class MarketTradesService {
   private _marketTradeSummary: BehaviorSubject<_MarketSummaryTypeAndCurrency>;
   private _electron = electron
   private _renderer = this._electron.ipcRenderer
+  private _realTimeInterval!: any;
+  // private _realTimeInterval!: NodeJS.Timeout;
 
   constructor() {
     this._marketTrades = new BehaviorSubject<_Trades>({
-      isSet: false,
-      trades: []
+      isSet: "NO",
     });
 
     this._marketTradeSummary = new BehaviorSubject<_MarketSummaryTypeAndCurrency>({
-      closingPrice: 0,
-      totalSize: 0,
-      COP: 0,
-      EURO: 0,
-      isSet: false
+      isSet: "NO"
     });
   }
 
@@ -46,13 +49,13 @@ export class MarketTradesService {
     return this._marketTradeSummary.asObservable();
   }
 
-  loadMarketTrades(unixDate: number, unixDateEnd?: number) {
-    this._renderer.send("getMarketTradesAndCalculateClosingPrice", { unixDate, unixDateEnd })
+  loadMarketTrades(unixDate: number, unixDateEnd?: number, limit?: number) {
+    this._renderer.send("getMarketTradesAndCalculateClosingPrice", { unixDate, unixDateEnd, limit })
 
     this._renderer.once<IMarketTrade>("getMarketTrades", (event, data) => {
 
       const finalTradeValue: _Trades = {
-        ...this._marketTrades.value,
+        isSet: "YES",
         trades: data.response.trades
       }
 
@@ -68,28 +71,26 @@ export class MarketTradesService {
           ...this._marketTradeSummary.value,
           ...data.response,
           ...currency.response,
+          isSet: "YES"
         }
-        console.log("finalValue: ", finalValue)
         this._marketTradeSummary.next(finalValue)
       })
     })
   }
 
-  loadCurrentMarketTradeInRealTime() {
+  loadCurrentMarketTradeInRealTime(limit: number) {
     const { unixTimeInSeconds } = dateInfo(new Date())
-    this.loadMarketTrades(unixTimeInSeconds)
+    this.loadMarketTrades(unixTimeInSeconds, undefined, limit)
 
-    setInterval(() => {
-      this.loadMarketTrades(unixTimeInSeconds)
-    }, 60000)
+    this._realTimeInterval = setInterval(() => {
+      this.loadMarketTrades(unixTimeInSeconds, undefined, limit)
+    }, 6000 * 10)
 
   }
 
-  changeTradeState(val: boolean) {
-    this._marketTrades.value.isSet = val
-  }
-
-  changeMarketSummaryState(val: boolean) {
-    this._marketTradeSummary.value.isSet = val
+  stopRealTimeUpdates() {
+    if (this._realTimeInterval) {
+      clearInterval(this._realTimeInterval)
+    }
   }
 }
