@@ -23,6 +23,23 @@ const useFetch = async (url, config) => {
     }
 }
 
+const convertToUseFetchObject = ({
+    request = {},
+    response = {},
+    hasError = false,
+    errorMessage = "",
+    customErrorMessage = "",
+}) => {
+
+    return {
+        hasError,
+        errorMessage,
+        request,
+        response,
+        customErrorMessage
+    }
+}
+
 const getJWTToken = (path, requestMethod = "GET") => {
     const { sign } = require('jsonwebtoken');
     const crypto = require('crypto');
@@ -84,5 +101,6 @@ const useFetchWithAuthorizationToken = async ({
 module.exports = {
     getJWTToken,
     useFetch,
-    useFetchWithAuthorizationToken
+    useFetchWithAuthorizationToken,
+    convertToUseFetchObject
 }
