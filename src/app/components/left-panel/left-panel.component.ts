@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-left-panel',
@@ -8,19 +8,25 @@ import { Component, Input } from '@angular/core';
   templateUrl: './left-panel.component.html',
   styleUrl: './left-panel.component.css'
 })
-export class LeftPanelComponent {
+export class LeftPanelComponent implements OnChanges {
 
-  @Input() isActive = true
+  @Input() panelActive = true
   @Input() title = ""
   togglePanel() {
-    this.isActive = !this.isActive
+    this.panelActive = !this.panelActive
   }
 
   closePanel() {
-    this.isActive = false
+    this.panelActive = false
   }
 
   openPanel() {
-    this.isActive = true
+    this.panelActive = true
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if ("panelActive" in changes) {
+      this.panelActive = changes['panelActive'].currentValue
+    }
   }
 }

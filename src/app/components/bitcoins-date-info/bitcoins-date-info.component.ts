@@ -18,7 +18,7 @@ export class BitcoinsDateInfoComponent implements OnInit {
   @Input() weekNumber!: number;
 
   ngOnInit(): void {
-    const startDay = this.weekNumber <= 1 ? 1 : this.weekNumber * 7
+    const startDay = this.weekNumber <= 1 ? 1 : (this.weekNumber - 1) * 7
     this.dates = getPreviousDaysFromCurrentDate(startDay, startDay + 6)
   }
 }

@@ -1,0 +1,12 @@
+<div>
+    @if (transactionSummary.isSet === "YES") {
+    <h3>Pricing Tier{{transactionSummary.fee_tier.pricing_tier}}</h3>
+    <p><strong>Maker Fee Rate</strong> {{transactionSummary.fee_tier.maker_fee_rate}}</p>
+    <p><strong>Taker Fee Rate</strong> {{transactionSummary.fee_tier.taker_fee_rate}}</p>
+    <p><strong>Advanced</strong> {{transactionSummary.advanced_trade_only_fees}}</p>
+    <p><strong>Advanced Volume</strong> {{transactionSummary.advanced_trade_only_volume}}</p>
+    <p><strong>Services Tax</strong> {{transactionSummary.goods_and_services_tax}}</p>
+    <p><strong>Total Fees</strong> {{transactionSummary.total_fees}}</p>
+    <p><strong>Total Volume</strong> {{transactionSummary.total_volume}}</p>
+    }
+</div>

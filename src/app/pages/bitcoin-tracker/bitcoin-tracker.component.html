@@ -1,9 +1,19 @@
 <h1>Real Time Bitcoin Data</h1>
 
 <div>
-    <h4>{{marketTradeSummary.closingPrice}} USD</h4>
-    <p>COP: {{marketTradeSummary.COP}}</p>
-    <p>Size: {{marketTradeSummary.totalSize}}</p>
+    <div>
+        @if (marketTradeSummary.isSet == "YES") {
+        <h4>{{marketTradeSummary.closingPrice}} USD</h4>
+        <p>COP: {{marketTradeSummary.COP}}</p>
+        <p>Size: {{marketTradeSummary.totalSize}}</p>
+        }
+    </div>
+
+    <button (click)="activePanel()">More Info</button>
+
+    <app-left-panel [panelActive]="panelActive">
+        <app-transaction-summary [transactionSummary]="transactionSummary"></app-transaction-summary>
+    </app-left-panel>
 </div>
 
 <app-bitcoins-date-info [weekNumber]="1" [accessKey]="1"></app-bitcoins-date-info>

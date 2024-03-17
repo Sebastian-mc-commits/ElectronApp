@@ -1,27 +1,21 @@
-# ElectronApp
+# WELCOME TO THE BITCOIN STATE VIEWER
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.0.
+The Bitcoin State Viewer is a desktop application built using Electron.js and Angular. Its primary function is to provide up-to-date information about Bitcoin, including its closing value and relevant data for the current day's trading activity. Additionally, it offers insights into Bitcoin's performance over the past two weeks.
 
-## Development server
+## CURRENT FEATURES
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Real-time display of Bitcoin's closing value.
+- Insights into Bitcoin's trading activity for the current day.
+- Historical data retrieval for the past two weeks.
+- Offline functionality for seamless operation without an internet connection.
 
-## Code scaffolding
+## WHAT'S IN PROGRESS?
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+While the application is functional, several improvements are underway, including:
 
-## Build
+- Implementing caching mechanisms for improved performance.
+- Enhancing user interface and visual design.
+- Adding test coverage to ensure robustness.
+- Implementing pop-up notifications for important events.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+"Hi tekus 👋"

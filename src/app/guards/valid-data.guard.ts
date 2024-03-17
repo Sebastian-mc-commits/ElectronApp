@@ -4,24 +4,18 @@ import { WindowParamsEvent } from '../../utils/types';
 import { MarketTradeViewerType } from '../pages/market-trade-viewer/market-trade-viewer.component';
 import { inject } from '@angular/core';
 
-export const validDataGuard: CanActivateFn = async (route, state): Promise<boolean> => {
+export const validDataGuard: CanActivateFn = (route, state): boolean => {
 
-  return true
   const router = inject(Router)
+  let replaceRoute = false
+  electron.ipcRenderer.once<WindowParamsEvent<MarketTradeViewerType>>("on-open-window", (e, params) => {
 
-  return await new Promise(resolve => {
-    let replaceRoute = false
-    electron.ipcRenderer.once<WindowParamsEvent<MarketTradeViewerType>>("on-open-window", (e, params) => {
+    const { response: { windowName, end, start } } = params;
 
-      const { response: { windowName, end, start } } = params;
-
-      replaceRoute = true
-      router.navigate([windowName, start, end])
-    })
-
-    setTimeout(() => {
-      resolve(!replaceRoute)
-    }, 1000)
+    replaceRoute = true
+    router.navigate([windowName, +start, +end])
   })
+
+  return !replaceRoute
 
 };

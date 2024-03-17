@@ -12,9 +12,9 @@ module.exports = (ipcMain) => {
         event.reply(marketTradesService.marketTrades, data)
     })
 
-    ipcMain.on(marketTradesService.marketTradesAndCalculateClosingPrice, async (event, { unixDate, unixDateEnd }) => {
+    ipcMain.on(marketTradesService.marketTradesAndCalculateClosingPrice, async (event, { unixDate, unixDateEnd, limit }) => {
 
-        const data = await marketTradesService.getMarketTrades(unixDate, unixDateEnd)
+        const data = await marketTradesService.getMarketTrades(unixDate, unixDateEnd, limit)
 
         event.reply(marketTradesService.marketTrades, data)
 
