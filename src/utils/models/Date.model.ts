@@ -11,4 +11,5 @@ export interface DateData {
     isoDate: string;
     unixTimeInSeconds: number;
     unixTimestampInMilliseconds: number;
+    inputDate: Date
 }

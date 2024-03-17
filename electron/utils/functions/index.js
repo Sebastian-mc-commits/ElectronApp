@@ -1,7 +1,8 @@
-const { useFetch, getJWTToken, useFetchWithAuthorizationToken } = require("./useFetch.js");
+const { useFetch, getJWTToken, useFetchWithAuthorizationToken, convertToUseFetchObject } = require("./useFetch.js");
 
 module.exports = {
     useFetch,
     getJWTToken,
-    useFetchWithAuthorizationToken
+    useFetchWithAuthorizationToken,
+    convertToUseFetchObject
 };

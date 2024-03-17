@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { DateData } from '../../../utils/models/Date.model';
-import { TradingSummaryService } from '../../services/trading-summary.service';
+import { dateSetter } from '../../../utils/functions';
+import { ElectronUtilitiesService } from '../../services/electron-utilities.service';
+import { MarketTradeViewerType } from '../../pages/market-trade-viewer/market-trade-viewer.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bitcoin-date-info',
@@ -14,18 +17,24 @@ export class BitcoinDateInfoComponent {
   @Input() dateInfo!: DateData
   isSelected: boolean
 
-  constructor(private _tradingSummaryService: TradingSummaryService) {
+  constructor(public _electronUtilities: ElectronUtilitiesService, public ro: Router) {
     this.isSelected = false
   }
 
   onPress() {
     this.isSelected = !this.isSelected
 
-    console.log("Render to a new View: ", this.dateInfo)
 
     if (this.isSelected) {
-      const { isoDate } = this.dateInfo
-      this._tradingSummaryService.getTransactionsSummariesByDate(isoDate, isoDate)
+      const { unixTimeInSeconds, inputDate } = this.dateInfo
+
+      this.ro.navigate(["/marketTradeViewer", dateSetter(inputDate, -1).unixTimeInSeconds, unixTimeInSeconds])
+      // this._electronUtilities.openNewWindowWithArgs<MarketTradeViewerType>("/marketTradeViewer",
+      //   {
+      //     start: dateSetter(inputDate, -1).unixTimeInSeconds,
+      //     end: unixTimeInSeconds
+      //   }
+      // )
     }
   }
 }

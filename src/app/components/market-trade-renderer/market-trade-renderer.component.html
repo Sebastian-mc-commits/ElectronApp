@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="ball-1"></div>
+    <div class="ball-2"></div>
+    <table summary="Show trade info">
+        <thead class="stick-head">
+            <tr>
+                <th>Product Id</th>
+                <th>Trade Id</th>
+                <th>Ask</th>
+                <th>Bid</th>
+                <th>Side</th>
+                <th>Time</th>
+                <th>Price USD</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (item of data; track item.trade_id) {
+
+            <tr>
+                <td>{{item.product_id}}</td>
+                <td>{{item.trade_id}}</td>
+                <td>{{item.ask}}</td>
+                <td>{{item.bid}}</td>
+                <td>{{item.side}}</td>
+                <td>{{item.size}}</td>
+                <td>{{item.time}}</td>
+                <td>{{item.price}}</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

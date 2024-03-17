@@ -1,0 +1,23 @@
+<div>
+
+    <h2>Bitcoin Closing Price {{closingPriceInfo.closingPrice}} USD</h2>
+    <p>EURO: {{closingPriceInfo.EURO}}</p>
+    <p>COP: {{closingPriceInfo.COP}}</p>
+
+    <select name="showData" id="showData">
+        <option value="20">20</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+        <option value="all">all</option>
+        <option value="" selected>Show Data</option>
+    </select>
+
+    <button (click)="openPanel()">More Info</button>
+    <div class="container">
+        <app-market-trade-renderer [data]="trades"></app-market-trade-renderer>
+    </div>
+
+    <app-left-panel [title]="'Hi'" [isActive]="isPanelActive">
+        <p>An example</p>
+    </app-left-panel>
+</div>

@@ -1,0 +1,29 @@
+.panel-parent {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 37%;
+    height: 100%;
+    background-color: var(--Dark_Crypto_Blue);
+    color: white;
+    transition: left 0.35s;
+    padding: 1rem;
+}
+
+.content {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.inactive {
+    left: -37%;
+}

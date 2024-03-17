@@ -1,10 +1,11 @@
 import { ElectronServices } from "../types";
+import IFetch from "./Fetch.model";
 
 
 export type ElectronTypes = {
     ipcRenderer: {
         send: (val: ElectronServices, ...args: any) => void;
-        once: <T>(val: ElectronServices, callback: (event: any, data: T) => void) => void;
+        once: <T>(val: ElectronServices, callback: (event: any, data: IFetch<T>) => void) => void;
     }
 }
 

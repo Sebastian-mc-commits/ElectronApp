@@ -1,0 +1,33 @@
+.container {
+    position: relative;
+    min-height: 30vh;
+    max-height: 60vh;
+    width: 85%;
+    margin: 3% 0 auto;
+    padding: 1.5rem;
+}
+
+.ball {
+    border-radius: 100%;
+    position: absolute;
+    inset: 0 0 0 0;
+    width: 5rem;
+    height: 5rem;
+}
+
+.ball-1 {
+    background-color: var(--Dark_Crypto_Green);
+    top: 80%;
+    left: 80%;
+}
+
+.ball-2 {
+    background-color: var(--Dark_Crypto_Orange);
+    top: -80%;
+    left: -80%;
+}
+
+.stick-head {
+    position: sticky;
+    top: 5rem;
+}

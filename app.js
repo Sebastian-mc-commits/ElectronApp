@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const url = require("url");
 const path = require("path");
 const ipcServices = require("./electron/ipcMainHandlers/services.js")
+const ipcHandlers = require("./electron/ipcMainHandlers/handlers.js")
 
 let mainWindow
 
@@ -30,6 +31,7 @@ function createWindow() {
     })
 
     ipcServices(ipcMain)
+    ipcHandlers(ipcMain)
 }
 
 app.on('ready', createWindow)

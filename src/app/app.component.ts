@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { BitcoinsDateInfoComponent } from './components/bitcoins-date-info/bitcoins-date-info.component';
-import { TradingSummaryService } from './services/trading-summary.service';
+import { electron } from '../utils/functions/window.utilities';
+import { WindowParamsEvent } from '../utils/types';
+import { MarketTradeViewerType } from './pages/market-trade-viewer/market-trade-viewer.component';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +14,13 @@ import { TradingSummaryService } from './services/trading-summary.service';
 })
 export class AppComponent implements OnInit {
   title = 'electron-app';
-  constructor(private tradingSummaryService: TradingSummaryService) {
+  constructor(private router: Router) {
 
   }
 
   ngOnInit(): void {
-    // this.tradingSummaryService.getTransactionsSummariesByDate()
+
+    
   }
+
 }

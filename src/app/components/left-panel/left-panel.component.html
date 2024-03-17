@@ -1,0 +1,6 @@
+<section class="panel-parent {{isActive ? '' : 'inactive'}}">
+    <h1>{{title}}</h1>
+
+    <ng-content class="content"></ng-content>
+    <button (click)="closePanel()">Close</button>
+</section>

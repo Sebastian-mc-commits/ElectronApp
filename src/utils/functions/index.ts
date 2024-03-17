@@ -1,5 +1,5 @@
 export {
     dateInfo,
     getPreviousDaysFromCurrentDate,
-    previousDate
+    dateSetter
 } from "./dateInfo"
