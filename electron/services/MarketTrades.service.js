@@ -20,7 +20,7 @@ module.exports = class extends Fetch {
         )
     }
 
-    calculateClosingPrice = (trades) => trades.reduce((acc, trade) => {
+    calculateTotalPrice = (trades) => trades.reduce((acc, trade) => {
 
         return {
             ...acc,
@@ -31,4 +31,6 @@ module.exports = class extends Fetch {
         closingPrice: 0,
         totalSize: 0,
     })
+
+    getFinalPrice = (trades) => trades[trades.length - 1]
 }

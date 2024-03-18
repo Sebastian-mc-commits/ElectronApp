@@ -38,7 +38,10 @@ module.exports = (ipcMain) => {
             const calculatedClosingPrice = await cacheHandler.reducer(otherParams, {
                 file: marketTradesService.marketTradesAndCalculateClosingPrice.concat(formattedDate).concat(limit?.toString() || "10"),
                 callback: () => convertToUseFetchObject({
-                    response: marketTradesService.calculateClosingPrice(data.response?.trades || [])
+                    response: {
+                        ...marketTradesService.calculateTotalPrice(data.response?.trades || []),
+                        finalPrice: marketTradesService.getFinalPrice(data.response?.trades || [])
+                    }
                 }),
                 condition: (data) => !data.hasError
             }, marketTradesService.fetchName, marketTradesService.marketTrades)

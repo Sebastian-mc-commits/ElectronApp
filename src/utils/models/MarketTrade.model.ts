@@ -1,7 +1,7 @@
 export type Trades = {
     trade_id: string;
     product_id: string;
-    price: string;
+    price: string | number;
     size: string;
     time: string;
     side: string;
@@ -10,13 +10,15 @@ export type Trades = {
 }
 
 export type MarketSummaryType = {
-    closingPrice: number,
-    totalSize: number
+    closingPrice: number;
+    totalSize: number;
+    finalPrice: Trades;
 }
 
 export type CurrencyType = {
     COP: number;
     EURO: number;
+    finalPrice: Trades
 }
 
 export type MarketSummaryTypeAndCurrency = CurrencyType & MarketSummaryType

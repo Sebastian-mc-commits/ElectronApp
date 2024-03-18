@@ -2,7 +2,8 @@
 
     @if (closingPriceInfo.isSet === "YES") {
     <div>
-        <h2>Bitcoin Closing Price {{closingPriceInfo.closingPrice}} USD</h2>
+        <h2>BITCOIN TOTAL PRICE ALONG THE DAY: {{closingPriceInfo.closingPrice}} USD</h2>
+        <p>USD: {{closingPriceInfo.finalPrice.price}}</p>
         <p>EURO: {{closingPriceInfo.EURO}}</p>
         <p>COP: {{closingPriceInfo.COP}}</p>
     </div>

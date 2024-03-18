@@ -3,8 +3,10 @@
 <div>
     <div>
         @if (marketTradeSummary.isSet == "YES") {
-        <h4>{{marketTradeSummary.closingPrice}} USD</h4>
+        <h4>BITCOIN TOTAL PRICE ALONG THE DAY: {{marketTradeSummary.closingPrice}} USD</h4>
         <p>COP: {{marketTradeSummary.COP}}</p>
+        <p>EURO: {{marketTradeSummary.EURO}}</p>
+        <p>USD: {{marketTradeSummary.finalPrice.price}}</p>
         <p>Size: {{marketTradeSummary.totalSize}}</p>
         }
         @else {

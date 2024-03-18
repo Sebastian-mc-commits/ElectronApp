@@ -74,7 +74,12 @@ export class MarketTradesService {
 
       const { unixDate, limit, unixDateEnd, ...dataParams } = data
 
-      this._renderer.send<MarketSummaryType>("USD-converter", { ...closingPrice.response, ...dataParams })
+      this._renderer.send<MarketSummaryType>("USD-converter", {
+        ...closingPrice.response,
+        closingPrice: closingPrice.response.finalPrice.price as number,
+        ...dataParams
+      })
+
       this._renderer.once<CurrencyType>("USD-converter", (e, currency) => {
 
         const finalValue: _MarketSummaryTypeAndCurrency = {
@@ -83,6 +88,7 @@ export class MarketTradesService {
           ...currency.response,
           isSet: "YES"
         }
+
         this._marketTradeSummary.next(finalValue)
       })
     })
