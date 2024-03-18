@@ -3,6 +3,7 @@ import { electron } from '../../utils/functions/window.utilities';
 import IMarketTrade, { CurrencyType, MarketSummaryType, MarketSummaryTypeAndCurrency, Trades } from '../../utils/models/MarketTrade.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { dateInfo } from '../../utils/functions';
+import { InfoElectronType } from '../../utils/models/Window.model';
 
 export type _MarketSummaryTypeAndCurrency = MarketSummaryTypeAndCurrency & {
   isSet: "YES"
@@ -18,6 +19,13 @@ type _Trades = {
   | {
     isSet: "NO";
   }
+
+type MarketTradesParamTypes = InfoElectronType<{
+  unixDate: number;
+  unixDateEnd?: number;
+  limit?: number;
+  formattedDate: string;
+}>
 
 @Injectable({
   providedIn: 'root'
@@ -49,27 +57,29 @@ export class MarketTradesService {
     return this._marketTradeSummary.asObservable();
   }
 
-  loadMarketTrades(unixDate: number, unixDateEnd?: number, limit?: number) {
-    this._renderer.send("getMarketTradesAndCalculateClosingPrice", { unixDate, unixDateEnd, limit })
+  loadMarketTrades(data: MarketTradesParamTypes) {
+    this._renderer.send("getMarketTradesAndCalculateClosingPrice", data)
 
     this._renderer.once<IMarketTrade>("getMarketTrades", (event, data) => {
 
       const finalTradeValue: _Trades = {
         isSet: "YES",
-        trades: data.response.trades
+        trades: data.response?.trades || []
       }
 
       this._marketTrades.next(finalTradeValue)
     })
 
-    this._renderer.once<MarketSummaryType>("getMarketTradesAndCalculateClosingPrice", (e, data) => {
+    this._renderer.once<MarketSummaryType>("getMarketTradesAndCalculateClosingPrice", (e, closingPrice) => {
 
-      this._renderer.send("USD-converter", data.response.closingPrice)
+      const { unixDate, limit, unixDateEnd, ...dataParams } = data
+
+      this._renderer.send<MarketSummaryType>("USD-converter", { ...closingPrice.response, ...dataParams })
       this._renderer.once<CurrencyType>("USD-converter", (e, currency) => {
 
         const finalValue: _MarketSummaryTypeAndCurrency = {
           ...this._marketTradeSummary.value,
-          ...data.response,
+          ...closingPrice.response,
           ...currency.response,
           isSet: "YES"
         }
@@ -78,13 +88,29 @@ export class MarketTradesService {
     })
   }
 
-  loadCurrentMarketTradeInRealTime(limit: number) {
-    const { unixTimeInSeconds } = dateInfo(new Date())
-    this.loadMarketTrades(unixTimeInSeconds, undefined, limit)
+  loadCurrentMarketTradeInRealTime(limit: number, removeCache = false) {
+    const { unixTimeInSeconds, formattedDate } = dateInfo(new Date())
+    this.loadMarketTrades({
+      isSet: "YES",
+      removeCache,
+      replaceCache: true,
+      unixDate: unixTimeInSeconds,
+      limit,
+      formattedDate,
+      setOnce: false
+    })
 
     this._realTimeInterval = setInterval(() => {
-      this.loadMarketTrades(unixTimeInSeconds, undefined, limit)
-    }, 6000 * 10)
+      this.loadMarketTrades({
+        isSet: "YES",
+        removeCache,
+        replaceCache: true,
+        unixDate: unixTimeInSeconds,
+        limit,
+        formattedDate,
+        setOnce: false
+      })
+    }, 60000)
 
   }
 

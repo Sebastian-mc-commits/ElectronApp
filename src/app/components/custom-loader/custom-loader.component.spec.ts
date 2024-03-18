@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExampleComponent } from './example.component';
+import { CustomLoaderComponent } from './custom-loader.component';
 
-describe('ExampleComponent', () => {
-  let component: ExampleComponent;
-  let fixture: ComponentFixture<ExampleComponent>;
+describe('CustomLoaderComponent', () => {
+  let component: CustomLoaderComponent;
+  let fixture: ComponentFixture<CustomLoaderComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ExampleComponent]
+      imports: [CustomLoaderComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ExampleComponent);
+    fixture = TestBed.createComponent(CustomLoaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

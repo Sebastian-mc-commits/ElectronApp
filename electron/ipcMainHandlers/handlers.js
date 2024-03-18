@@ -16,7 +16,7 @@ module.exports = (ipcMain) => {
         })
 
         const path = join(resolve(__dirname, "..", ".."), "/dist/electron-app/browser/index.html")
-        newWidow.loadURL(path)
+        newWidow.loadFile(path)
 
         const hasError = !(Object.keys(args).length > 0 && Object.values(args).every(val => !!val))
 
@@ -31,7 +31,7 @@ module.exports = (ipcMain) => {
         })
     })
 
-    ipcMain.on("USD-converter", (event, {closingPrice}) => {
+    ipcMain.on("USD-converter", (event, { closingPrice }) => {
 
         closingPrice = parseFloat(closingPrice)
         event.reply("USD-converter", convertToUseFetchObject({
@@ -40,5 +40,12 @@ module.exports = (ipcMain) => {
                 EURO: USD_to_EURO(closingPrice)
             }
         }))
+    })
+
+    ipcMain.on("removeAllCache", async () => {
+        const Cache = require("../.cache/index.js")
+        const cache = new Cache()
+
+        cache.clearAllCache()
     })
 }

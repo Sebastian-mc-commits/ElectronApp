@@ -9,6 +9,7 @@ export type ElectronServices = "getMarketTrades"
     | "on-open-window"
     | "getMarketTradesAndCalculateClosingPrice"
     | "USD-converter"
+    | "removeAllCache"
 
 export type WindowNamesTypes = "" | "/marketTradeViewer"
 export type WindowParamsEvent<T> = {

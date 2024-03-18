@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, screen } = require('electron')
 const url = require("url");
 const path = require("path");
 const ipcServices = require("./electron/ipcMainHandlers/services.js")
@@ -16,15 +16,25 @@ function createWindow() {
         }
     })
 
-    mainWindow.loadURL(
-        url.format({
-            pathname: path.join(__dirname, `/dist/electron-app/browser/index.html`),
-            protocol: "file:",
-            slashes: true
-        })
-    );
-    // Open the DevTools.
-    mainWindow.webContents.openDevTools()
+    const { width, height } = screen.getPrimaryDisplay().workAreaSize
+
+    const windowWidth = Math.floor(width * 0.4);
+
+    mainWindow.setBounds({
+        x: width - windowWidth,
+        y: 0,
+        width: windowWidth,
+        height
+    })
+
+    mainWindow.loadFile(path.join(__dirname, "dist", "electron-app", "browser", "index.html"))
+    // mainWindow.loadFile(
+    //     url.format({
+    //         pathname: path.join(__dirname, `/dist/electron-app/browser/index.html`),
+    //         protocol: "file:",
+    //         slashes: true
+    //     })
+    // );
 
     mainWindow.on('closed', function () {
         mainWindow = null
@@ -43,3 +53,4 @@ app.on('window-all-closed', function () {
 app.on('activate', function () {
     if (mainWindow === null) createWindow()
 })
+

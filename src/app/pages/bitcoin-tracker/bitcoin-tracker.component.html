@@ -7,6 +7,9 @@
         <p>COP: {{marketTradeSummary.COP}}</p>
         <p>Size: {{marketTradeSummary.totalSize}}</p>
         }
+        @else {
+        <app-custom-loader></app-custom-loader>
+        }
     </div>
 
     <button (click)="activePanel()">More Info</button>

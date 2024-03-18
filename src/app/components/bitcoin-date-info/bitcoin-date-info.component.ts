@@ -24,15 +24,21 @@ export class BitcoinDateInfoComponent {
   onPress() {
     this.isSelected = !this.isSelected
 
-
     if (this.isSelected) {
-      const { unixTimeInSeconds, inputDate } = this.dateInfo
+      const { unixTimeInSeconds, inputDate, formattedDate } = this.dateInfo
 
-      this.ro.navigate(["/marketTradeViewer", dateSetter(inputDate, -1).unixTimeInSeconds, unixTimeInSeconds])
+      this.ro.navigate([
+        "/marketTradeViewer",
+        dateSetter(inputDate, -1).unixTimeInSeconds,
+        unixTimeInSeconds,
+        formattedDate
+      ])
+
       // this._electronUtilities.openNewWindowWithArgs<MarketTradeViewerType>("/marketTradeViewer",
       //   {
       //     start: dateSetter(inputDate, -1).unixTimeInSeconds,
-      //     end: unixTimeInSeconds
+      //     end: unixTimeInSeconds,
+      //     formattedDate
       //   }
       // )
     }

@@ -10,6 +10,10 @@ export class ElectronUtilitiesService {
   constructor() { }
 
   openNewWindowWithArgs<T>(windowName: WindowNamesTypes, data: T) {
-    electron.ipcRenderer.send("open-new-window:args", { windowName, ...data })
+    electron.ipcRenderer.send("open-new-window:args", { windowName, isSet: "NO", ...data })
+  }
+
+  removeAllCache() {
+    electron.ipcRenderer.send("removeAllCache", { isSet: "NO" })
   }
 }

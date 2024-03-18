@@ -1,4 +1,5 @@
 const { useFetch, getJWTToken, useFetchWithAuthorizationToken, convertToUseFetchObject } = require("./useFetch.js");
+const { ERROR_MESSAGES, errorDialog, infoDialog } = require("./dialog.js")
 
 module.exports = {
     useFetch,
@@ -12,5 +13,8 @@ module.exports = {
         } catch {
             return false;
         }
-    }
+    },
+    errorDialog,
+    infoDialog,
+    ERROR_MESSAGES
 };

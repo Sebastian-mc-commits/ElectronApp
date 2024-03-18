@@ -9,4 +9,7 @@
     <p><strong>Total Fees</strong> {{transactionSummary.total_fees}}</p>
     <p><strong>Total Volume</strong> {{transactionSummary.total_volume}}</p>
     }
+    @else {
+        <app-custom-loader></app-custom-loader>
+    }
 </div>

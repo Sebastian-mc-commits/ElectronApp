@@ -5,11 +5,12 @@ import { TradingSummaryService, _ITransactionSummary } from '../../services/trad
 import { LeftPanelComponent } from '../../components/left-panel/left-panel.component';
 import { Subscription, take } from 'rxjs';
 import { TransactionSummaryComponent } from '../../components/transaction-summary/transaction-summary.component';
+import { CustomLoaderComponent } from '../../components/custom-loader/custom-loader.component';
 
 @Component({
   selector: 'app-bitcoin-tracker',
   standalone: true,
-  imports: [BitcoinsDateInfoComponent, LeftPanelComponent, TransactionSummaryComponent],
+  imports: [BitcoinsDateInfoComponent, LeftPanelComponent, TransactionSummaryComponent, CustomLoaderComponent],
   templateUrl: './bitcoin-tracker.component.html',
   styleUrl: './bitcoin-tracker.component.css'
 })
@@ -38,9 +39,7 @@ export class BitcoinTrackerComponent implements OnInit, OnDestroy {
     this._marketTradesSubscription = this._marketTradesService.marketTradeSummary.subscribe(data => {
 
       this.marketTradeSummary = data
-      if (data.isSet === "YES") {
-        this._cdr.detectChanges()
-      }
+      this._cdr.detectChanges()
     })
 
     this._tradingSummaryService.transactionSummary

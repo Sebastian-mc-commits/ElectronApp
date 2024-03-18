@@ -7,6 +7,9 @@
         <p>COP: {{closingPriceInfo.COP}}</p>
     </div>
     }
+    @else {
+        <app-custom-loader></app-custom-loader>
+    }
 
     <select name="showData" id="showData" (change)="onSelectValue($event)">
         <option value="20">20</option>

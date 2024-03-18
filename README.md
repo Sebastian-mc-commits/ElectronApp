@@ -9,13 +9,16 @@ The Bitcoin State Viewer is a desktop application built using Electron.js and An
 - Historical data retrieval for the past two weeks.
 - Offline functionality for seamless operation without an internet connection.
 
-## WHAT'S IN PROGRESS?
-
-While the application is functional, several improvements are underway, including:
-
-- Implementing caching mechanisms for improved performance.
-- Enhancing user interface and visual design.
-- Adding test coverage to ensure robustness.
-- Implementing pop-up notifications for important events.
-
 "Hi tekus 👋"
+
+## Final Overview
+
+Hello,
+
+In this final overview, I'll provide a brief summary of how the app was constructed.
+
+- Data Handling: Internally, the app utilizes Electron's inter-process communication to effectively manage and structure API data. Error handling is streamlined through a custom `uswFetch` function, which efficiently manages errors and integrates with an error dialog for user feedback.
+
+- Caching Mechanism: Leveraging Streams and optimized methods, the app implements robust caching functionalities. This includes features such as cache clearing, retrieval, reading, existence checks, and more. With these mechanisms in place, the app can seamlessly access data even in offline scenarios.
+
+- Logical Separation: To maintain clarity and organization, the app neatly separates Electron utilities from Angular components. This ensures that each part of the application utilizes appropriate methods without interference, promoting cleaner and more maintainable code.

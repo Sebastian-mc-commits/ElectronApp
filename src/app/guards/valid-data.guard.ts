@@ -10,12 +10,12 @@ export const validDataGuard: CanActivateFn = (route, state): boolean => {
   let replaceRoute = false
   electron.ipcRenderer.once<WindowParamsEvent<MarketTradeViewerType>>("on-open-window", (e, params) => {
 
-    const { response: { windowName, end, start } } = params;
+    const { response: { windowName, end, start, formattedDate } } = params;
 
     replaceRoute = true
-    router.navigate([windowName, +start, +end])
+    router.navigate([windowName, +start, +end, formattedDate])
   })
 
-  return !replaceRoute
+  return true
 
 };

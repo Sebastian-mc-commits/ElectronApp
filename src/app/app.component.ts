@@ -1,26 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
-import { BitcoinsDateInfoComponent } from './components/bitcoins-date-info/bitcoins-date-info.component';
-import { electron } from '../utils/functions/window.utilities';
-import { WindowParamsEvent } from '../utils/types';
-import { MarketTradeViewerType } from './pages/market-trade-viewer/market-trade-viewer.component';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { ElectronUtilitiesService } from './services/electron-utilities.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, BitcoinsDateInfoComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'electron-app';
-  constructor(private router: Router) {
 
-  }
+  constructor(private _electronUtilitiesService: ElectronUtilitiesService) { }
 
-  ngOnInit(): void {
-
-    
+  onRemoveCache() {
+    this._electronUtilitiesService.removeAllCache()
   }
 
 }

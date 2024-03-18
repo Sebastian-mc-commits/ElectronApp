@@ -32,8 +32,6 @@ export function getPreviousDaysFromCurrentDate(from: number, to: number): DateDa
 
     const days = []
 
-    console.log("i", from)
-    console.log("to", to)
     for (let i = from; i <= to; i++) {
         days.push(dateSetter(new Date(), i * -1))
     }

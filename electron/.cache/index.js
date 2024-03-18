@@ -1,16 +1,20 @@
-const { createWriteStream, createReadStream, existsSync, mkdirSync } = require("node:fs")
+const { createWriteStream, createReadStream, existsSync, mkdirSync, rm } = require("node:fs")
 const { Transform } = require("node:stream")
 const { join } = require("node:path")
-const { isJson } = require("../utils/functions/index.js")
+const { isJson, ERROR_MESSAGES, infoDialog, errorDialog } = require("../utils/functions/index.js")
 
 module.exports = class {
+
+    #globalFolder = "cache_data"
+    #canCreate = true
+    #dialogTimer = 0
 
     _existsInCache = (path) => {
         return existsSync(path)
     }
 
     _fullPath = (...folders) => {
-        return join(__dirname, ...folders)
+        return join(__dirname, this.#globalFolder, ...folders)
     }
 
     _createFolders = (path) => {
@@ -19,6 +23,8 @@ module.exports = class {
     }
 
     writeToCache = (path, data) => {
+
+        if (!this.#canCreate) return
 
         const stream = createWriteStream(path, { flags: "w" })
 
@@ -31,7 +37,7 @@ module.exports = class {
             stream.write(JSON.stringify(data) + "\n")
         }
 
-        stream.on("error", (error) => console.log("Error; ", error.message))
+        stream.on("error", (error) => errorDialog(ERROR_MESSAGES.COULD_NOT_SAVE))
 
         stream.end()
     }
@@ -40,6 +46,13 @@ module.exports = class {
 
         return await new Promise((resolve, reject) => {
             const stream = createReadStream(path)
+
+            stream.on("error", (error) => {
+                if (this.#dialogTimer >= 2) return
+
+                errorDialog(ERROR_MESSAGES.COULD_NOT_SAVE)
+                this.#dialogTimer += 1
+            })
 
             const transformStream = new Transform({
                 objectMode: true,
@@ -59,8 +72,10 @@ module.exports = class {
             })
 
             transformStream.on("end", () => {
+                this.#dialogTimer = 0
                 resolve(data.length === 1 ? data[0] : data)
             })
+
 
         })
     }
@@ -120,5 +135,17 @@ module.exports = class {
 
     clearCache(files) {
         console.log("Clearing Cache")
+    }
+
+    clearAllCache = () => {
+        this.#canCreate = false
+        rm(this._fullPath(""), { recursive: true, force: true }, err => {
+            if (err) {
+                infoDialog("Couldn't clear")
+            }
+
+            this.#canCreate = true
+        })
+
     }
 }
