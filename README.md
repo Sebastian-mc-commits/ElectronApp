@@ -27,6 +27,20 @@ In this final overview, I'll provide a brief summary of how the app was construc
 
 (I have'nt fixe the issue about the current bitcoin value until now. My apologies)
 
+## Finally, how to make the project works ?
+
+- Add a .env file in the root of the project with the following variables: 
+
+KEY_NAME = 
+KEY_SECRET = 
+URL = 'api.coinbase.com'
+SERVICE_NAME = 
+ALGORITHM = 
+HOST =  Angular hosting
+
+- All the variables except for HOST are provided by coinbase.
+You can request your own service at https://portal.cloud.coinbase.com
+
 ![alt text](./readme.src/image1.png)
 ![alt text](./readme.src/image2.png)
 ![alt text](./readme.src/image3.png)
